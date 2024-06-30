@@ -4,8 +4,8 @@ import com.grupo5.monolitoclean.domain.entities.AssinaturaModel;
 import com.grupo5.monolitoclean.domain.repository.IAplicativoRepository;
 import com.grupo5.monolitoclean.domain.repository.IAssinaturaRepository;
 import com.grupo5.monolitoclean.domain.repository.IClienteRepository;
+import com.grupo5.monolitoclean.domain.repository.StatusAssinatura;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -36,7 +36,7 @@ public class AssinaturaMemRepository implements IAssinaturaRepository {
                 aplicativoRepository.buscarAplicativoPorId(codapp),
                 clienteRepository.buscarClientePorId(codcli),
                 LocalDate.now(),
-                LocalDate.now().plusDays(30)
+                LocalDate.now().plusDays(7)
                 );
             assinaturas.add(assinaturaModel);
             return assinaturaModel;
@@ -61,7 +61,6 @@ public class AssinaturaMemRepository implements IAssinaturaRepository {
                 .filter(p -> p.getAplicativo().getCodigo() == codigoDoAplicativo)
                 .collect(Collectors.toList());
         System.out.println(assinaturasFiltradas);
-        System.out.println("alooooooo");
         return assinaturasFiltradas;
     }
 
@@ -73,5 +72,12 @@ public class AssinaturaMemRepository implements IAssinaturaRepository {
             }
         }
         return null;
+    }
+
+    @Override
+    public AssinaturaModel atualizaAssinatura(long codAssinatura) {
+        AssinaturaModel assinaturaModel = buscaAssinaturaPorCodigo(codAssinatura);
+        assinaturaModel.setFimVigencia(LocalDate.now().plusDays(30));
+        return assinaturaModel;
     }
 }

@@ -3,6 +3,7 @@ package com.grupo5.monolitoclean.domain.services;
 import com.grupo5.monolitoclean.domain.entities.AssinaturaModel;
 import com.grupo5.monolitoclean.domain.repository.IAssinaturaRepository;
 import com.grupo5.monolitoclean.domain.repository.StatusAssinatura;
+import jdk.jshell.Snippet;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -15,11 +16,13 @@ import java.util.regex.Pattern;
 
 @Service
 public class AssinaturaService {
+    private final PagamentoService pagamentoService;
     private IAssinaturaRepository assinaturaRepository;
 
 
-    public AssinaturaService(IAssinaturaRepository assinaturaRepository){
+    public AssinaturaService(IAssinaturaRepository assinaturaRepository, PagamentoService pagamentoService){
         this.assinaturaRepository = assinaturaRepository;
+        this.pagamentoService = pagamentoService;
     }
 
     public List<AssinaturaModel> listarAssinaturasDoCliente(long codCliente) {

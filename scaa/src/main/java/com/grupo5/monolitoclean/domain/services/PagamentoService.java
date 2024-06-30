@@ -5,9 +5,11 @@ import com.grupo5.monolitoclean.domain.repository.IAplicativoRepository;
 import com.grupo5.monolitoclean.domain.repository.IAssinaturaRepository;
 import com.grupo5.monolitoclean.domain.repository.IPagamentoRepository;
 import com.grupo5.monolitoclean.application.dtos.PagamentoDTO;
+import com.grupo5.monolitoclean.domain.repository.StatusAssinatura;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -26,17 +28,12 @@ public class PagamentoService {
     public PagamentoModel registraPagamento(PagamentoDTO pagamentoDTO) {
         PagamentoModel pagamento = new PagamentoModel(
                 pagamentoRepository.quantidadeDePagamentosRegistrados(),
-                assinaturaRepository.buscaAssinaturaPorCodigo(pagamentoDTO.codass()),
+                assinaturaRepository.atualizaAssinatura(pagamentoDTO.codass()),
                 pagamentoDTO.valorPago(),
-                LocalDateTime.of(
-                        pagamentoDTO.ano(),
-                        pagamentoDTO.mes(),
-                        pagamentoDTO.dia(),
-                        0,
-                        0
-                ),
+                LocalDate.now(),
                 "none"
         );
         return pagamentoRepository.registrarPagamento(pagamento);
     }
+
 }
