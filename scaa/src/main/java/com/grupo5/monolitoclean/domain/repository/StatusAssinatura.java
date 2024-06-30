@@ -12,22 +12,14 @@ public enum StatusAssinatura {
 
     private String nome;
 
-    private StatusAssinatura(String nome){
+    StatusAssinatura(String nome){
         this.nome = nome;
     }
 
-    public String getNome(){
-        return nome;
+    public String getNome(AssinaturaModel assinaturaModel){
+        if (assinaturaModel.getFimVigencia().isBefore(LocalDate.now())){
+            return this.nome ="Ativa";
+        }
+        return this.nome ="Cancelada";
     }
-
-//    public String setNome(AssinaturaModel assinaturaModel){
-//        LocalDate dataAtual = LocalDate.now();
-//        if (assinaturaModel.getFimVigencia().toInstant().isBefore(Instant.from(dataAtual))){
-//            nome.equalsIgnoreCase("Ativa");
-//        }else {
-//            nome.equalsIgnoreCase("Cancelada");
-//        }
-//
-//            return nome;
-//    }
 }
