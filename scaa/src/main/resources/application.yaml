@@ -1,8 +1,21 @@
 spring:
+  cloud:
+    openfeign:
+      client:
+      config:
+        default:
+          connectTimeout=123000
+          readTimeout=123000
+
   application:
     name: scaa
 server:
   port: 8081
+management:
+  endpoints:
+    web:
+      exposure:
+        include=*
 
 eureka:
   client:
