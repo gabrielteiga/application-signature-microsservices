@@ -36,7 +36,4 @@ public class PagamentoService {
         return pagamentoRepository.registrarPagamento(pagamento);
     }
 
-    public PagamentoModel buscaPagamentoPorId(PagamentoModel pagamentoModel) {
-
-    }
 }
